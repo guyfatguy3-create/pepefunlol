@@ -1,0 +1,1105 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>$PEPE - The OG Filipino Memecoin</title>
+    <link href="https://fonts.googleapis.com/css2?family=Bangers&family=Permanent+Marker&family=Press+Start+2P&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --primary-green: #4ADE4A;
+            --dark-green: #2ECC40;
+            --bright-green: #7CFC00;
+            --glow-green: #39FF14;
+            --bg-dark: #0a0a0a;
+            --bg-darker: #050505;
+            --text-white: #ffffff;
+            --text-gray: #888888;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        html {
+            scroll-behavior: smooth;
+        }
+
+        body {
+            background-color: var(--bg-dark);
+            color: var(--text-white);
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            overflow-x: hidden;
+            min-height: 100vh;
+        }
+
+        /* Starfield Background */
+        .stars {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            pointer-events: none;
+            z-index: 0;
+        }
+
+        .star {
+            position: absolute;
+            width: 2px;
+            height: 2px;
+            background: white;
+            border-radius: 50%;
+            animation: twinkle 3s infinite;
+        }
+
+        @keyframes twinkle {
+            0%, 100% { opacity: 0.3; }
+            50% { opacity: 1; }
+        }
+
+        /* Navigation */
+        nav {
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            z-index: 1000;
+            background: rgba(10, 10, 10, 0.95);
+            backdrop-filter: blur(10px);
+            border-bottom: 1px solid rgba(74, 222, 74, 0.2);
+            padding: 15px 40px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .nav-logo {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            font-family: 'Bangers', cursive;
+            font-size: 28px;
+            color: var(--primary-green);
+            text-decoration: none;
+            letter-spacing: 2px;
+        }
+
+        .nav-logo img {
+            width: 45px;
+            height: 45px;
+        }
+
+        .nav-logo-icon {
+            width: 45px;
+            height: 45px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 24px;
+        }
+
+        .nav-links {
+            display: flex;
+            gap: 35px;
+            align-items: center;
+        }
+
+        .nav-links a {
+            color: var(--text-white);
+            text-decoration: none;
+            font-family: 'Press Start 2P', cursive;
+            font-size: 10px;
+            letter-spacing: 1px;
+            transition: color 0.3s, text-shadow 0.3s;
+        }
+
+        .nav-links a:hover {
+            color: var(--primary-green);
+            text-shadow: 0 0 20px var(--glow-green);
+        }
+
+        .buy-btn {
+            background: var(--primary-green);
+            color: var(--bg-dark) !important;
+            padding: 12px 25px;
+            border-radius: 5px;
+            font-weight: bold;
+            transition: all 0.3s;
+            box-shadow: 0 0 20px rgba(74, 222, 74, 0.3);
+        }
+
+        .buy-btn:hover {
+            background: var(--bright-green);
+            box-shadow: 0 0 30px rgba(74, 222, 74, 0.6);
+            transform: scale(1.05);
+        }
+
+        /* Ticker */
+        .ticker-container {
+            position: fixed;
+            top: 75px;
+            left: 0;
+            right: 0;
+            background: var(--primary-green);
+            color: var(--bg-dark);
+            padding: 10px 0;
+            z-index: 999;
+            overflow: hidden;
+        }
+
+        .ticker-content {
+            display: flex;
+            animation: ticker 20s linear infinite;
+            white-space: nowrap;
+        }
+
+        .ticker-item {
+            font-family: 'Press Start 2P', cursive;
+            font-size: 11px;
+            padding: 0 50px;
+            font-weight: bold;
+        }
+
+        @keyframes ticker {
+            0% { transform: translateX(0); }
+            100% { transform: translateX(-50%); }
+        }
+
+        /* Hero Section */
+        .hero {
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            padding-top: 120px;
+            position: relative;
+            z-index: 1;
+        }
+
+        /* Background watermark */
+        .bg-watermark {
+            position: fixed;
+            left: -100px;
+            top: 50%;
+            transform: translateY(-50%);
+            opacity: 0.03;
+            font-size: 500px;
+            font-family: 'Bangers', cursive;
+            color: var(--primary-green);
+            pointer-events: none;
+            z-index: 0;
+        }
+
+        .hero-logo {
+            width: 180px;
+            height: 180px;
+            margin-bottom: 30px;
+            animation: float 3s ease-in-out infinite;
+            border: 4px solid var(--primary-green);
+            border-radius: 20px;
+            padding: 20px;
+            background: rgba(74, 222, 74, 0.05);
+            box-shadow: 0 0 50px rgba(74, 222, 74, 0.2);
+        }
+
+        .hero-logo img {
+            width: 100%;
+            height: 100%;
+            object-fit: contain;
+        }
+
+        @keyframes float {
+            0%, 100% { transform: translateY(0); }
+            50% { transform: translateY(-15px); }
+        }
+
+        .hero-title {
+            font-family: 'Permanent Marker', cursive;
+            font-size: clamp(60px, 12vw, 140px);
+            color: var(--primary-green);
+            text-shadow: 
+                4px 4px 0 var(--bg-dark),
+                8px 8px 0 rgba(74, 222, 74, 0.3),
+                0 0 50px rgba(74, 222, 74, 0.5);
+            letter-spacing: 5px;
+            animation: glow 2s ease-in-out infinite alternate;
+        }
+
+        @keyframes glow {
+            from { text-shadow: 4px 4px 0 var(--bg-dark), 8px 8px 0 rgba(74, 222, 74, 0.3), 0 0 30px rgba(74, 222, 74, 0.3); }
+            to { text-shadow: 4px 4px 0 var(--bg-dark), 8px 8px 0 rgba(74, 222, 74, 0.3), 0 0 60px rgba(74, 222, 74, 0.6); }
+        }
+
+        .hero-ticker {
+            font-family: 'Press Start 2P', cursive;
+            font-size: 24px;
+            color: var(--primary-green);
+            margin: 20px 0 40px;
+            opacity: 0.9;
+        }
+
+        .contract-box {
+            background: var(--primary-green);
+            color: var(--bg-dark);
+            padding: 18px 30px;
+            border-radius: 8px;
+            display: flex;
+            align-items: center;
+            gap: 15px;
+            font-family: 'Courier New', monospace;
+            font-size: 14px;
+            font-weight: bold;
+            cursor: pointer;
+            transition: all 0.3s;
+            box-shadow: 0 0 30px rgba(74, 222, 74, 0.3);
+            max-width: 90%;
+            overflow: hidden;
+        }
+
+        .contract-box:hover {
+            transform: scale(1.02);
+            box-shadow: 0 0 50px rgba(74, 222, 74, 0.5);
+        }
+
+        .contract-box span {
+            word-break: break-all;
+        }
+
+        .copy-icon {
+            font-size: 20px;
+            padding: 8px;
+            background: rgba(0,0,0,0.1);
+            border-radius: 5px;
+        }
+
+        .contract-label {
+            font-size: 10px;
+            opacity: 0.8;
+        }
+
+        /* Sections */
+        section {
+            padding: 100px 40px;
+            position: relative;
+            z-index: 1;
+        }
+
+        .section-title {
+            font-family: 'Permanent Marker', cursive;
+            font-size: clamp(40px, 8vw, 70px);
+            color: var(--primary-green);
+            text-align: center;
+            margin-bottom: 50px;
+            text-shadow: 3px 3px 0 rgba(74, 222, 74, 0.3);
+        }
+
+        /* About Section */
+        #about {
+            background: linear-gradient(180deg, transparent, rgba(74, 222, 74, 0.02), transparent);
+        }
+
+        .about-content {
+            max-width: 900px;
+            margin: 0 auto;
+            text-align: center;
+        }
+
+        .about-text {
+            font-size: 20px;
+            line-height: 1.8;
+            color: var(--text-white);
+            margin-bottom: 30px;
+        }
+
+        .about-text .highlight {
+            color: var(--primary-green);
+            font-weight: bold;
+        }
+
+        .culture-box {
+            background: rgba(74, 222, 74, 0.1);
+            border: 2px solid var(--primary-green);
+            border-radius: 15px;
+            padding: 40px;
+            margin-top: 40px;
+        }
+
+        .culture-box h3 {
+            font-family: 'Bangers', cursive;
+            font-size: 32px;
+            color: var(--primary-green);
+            margin-bottom: 20px;
+            letter-spacing: 2px;
+        }
+
+        .culture-box p {
+            font-size: 18px;
+            line-height: 1.7;
+            color: var(--text-gray);
+        }
+
+        /* Pepe Lab */
+        #pepe-lab {
+            background: rgba(74, 222, 74, 0.02);
+        }
+
+        .lab-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 30px;
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+
+        .lab-card {
+            background: rgba(74, 222, 74, 0.05);
+            border: 2px solid rgba(74, 222, 74, 0.3);
+            border-radius: 15px;
+            padding: 40px;
+            text-align: center;
+            transition: all 0.3s;
+        }
+
+        .lab-card:hover {
+            border-color: var(--primary-green);
+            box-shadow: 0 0 40px rgba(74, 222, 74, 0.2);
+            transform: translateY(-5px);
+        }
+
+        .lab-card-icon {
+            font-size: 60px;
+            margin-bottom: 20px;
+        }
+
+        .lab-card h3 {
+            font-family: 'Bangers', cursive;
+            font-size: 28px;
+            color: var(--primary-green);
+            margin-bottom: 15px;
+            letter-spacing: 2px;
+        }
+
+        .lab-card p {
+            color: var(--text-gray);
+            line-height: 1.6;
+        }
+
+        /* Burn Bot Section */
+        #burn-bot {
+            background: linear-gradient(180deg, transparent, rgba(74, 222, 74, 0.03), transparent);
+        }
+
+        .burn-container {
+            max-width: 1000px;
+            margin: 0 auto;
+        }
+
+        .burn-header {
+            text-align: center;
+            margin-bottom: 50px;
+        }
+
+        .burn-header p {
+            font-size: 20px;
+            color: var(--text-gray);
+            max-width: 700px;
+            margin: 0 auto;
+            line-height: 1.7;
+        }
+
+        .burn-stats {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 25px;
+            margin-bottom: 50px;
+        }
+
+        .burn-stat {
+            background: rgba(74, 222, 74, 0.1);
+            border: 2px solid var(--primary-green);
+            border-radius: 15px;
+            padding: 30px;
+            text-align: center;
+            transition: all 0.3s;
+        }
+
+        .burn-stat:hover {
+            transform: scale(1.05);
+            box-shadow: 0 0 30px rgba(74, 222, 74, 0.3);
+        }
+
+        .burn-stat-value {
+            font-family: 'Press Start 2P', cursive;
+            font-size: 24px;
+            color: var(--primary-green);
+            margin-bottom: 10px;
+        }
+
+        .burn-stat-label {
+            font-size: 14px;
+            color: var(--text-gray);
+            text-transform: uppercase;
+            letter-spacing: 1px;
+        }
+
+        .burn-features {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 25px;
+        }
+
+        .burn-feature {
+            background: rgba(0, 0, 0, 0.5);
+            border: 1px solid rgba(74, 222, 74, 0.3);
+            border-radius: 12px;
+            padding: 30px;
+            display: flex;
+            gap: 20px;
+            align-items: flex-start;
+            transition: all 0.3s;
+        }
+
+        .burn-feature:hover {
+            border-color: var(--primary-green);
+            background: rgba(74, 222, 74, 0.05);
+        }
+
+        .burn-feature-icon {
+            font-size: 40px;
+            flex-shrink: 0;
+        }
+
+        .burn-feature h4 {
+            font-family: 'Bangers', cursive;
+            font-size: 22px;
+            color: var(--primary-green);
+            margin-bottom: 10px;
+            letter-spacing: 1px;
+        }
+
+        .burn-feature p {
+            color: var(--text-gray);
+            font-size: 14px;
+            line-height: 1.6;
+        }
+
+        .bot-animation {
+            text-align: center;
+            margin-top: 50px;
+            padding: 40px;
+            background: rgba(74, 222, 74, 0.05);
+            border-radius: 20px;
+            border: 2px dashed rgba(74, 222, 74, 0.3);
+        }
+
+        .bot-icon {
+            font-size: 80px;
+            animation: pulse 2s infinite;
+        }
+
+        @keyframes pulse {
+            0%, 100% { transform: scale(1); opacity: 1; }
+            50% { transform: scale(1.1); opacity: 0.8; }
+        }
+
+        .bot-status {
+            font-family: 'Press Start 2P', cursive;
+            font-size: 14px;
+            color: var(--primary-green);
+            margin-top: 20px;
+            animation: blink 1s infinite;
+        }
+
+        @keyframes blink {
+            0%, 50% { opacity: 1; }
+            51%, 100% { opacity: 0.5; }
+        }
+
+        /* How to Buy */
+        #how-to-buy {
+            background: rgba(74, 222, 74, 0.02);
+        }
+
+        .steps-container {
+            max-width: 800px;
+            margin: 0 auto;
+        }
+
+        .step {
+            display: flex;
+            gap: 30px;
+            align-items: flex-start;
+            margin-bottom: 40px;
+            padding: 30px;
+            background: rgba(74, 222, 74, 0.05);
+            border-radius: 15px;
+            border-left: 4px solid var(--primary-green);
+            transition: all 0.3s;
+        }
+
+        .step:hover {
+            background: rgba(74, 222, 74, 0.1);
+            transform: translateX(10px);
+        }
+
+        .step-number {
+            font-family: 'Press Start 2P', cursive;
+            font-size: 24px;
+            color: var(--primary-green);
+            background: rgba(74, 222, 74, 0.2);
+            width: 60px;
+            height: 60px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            border-radius: 50%;
+            flex-shrink: 0;
+        }
+
+        .step-content h3 {
+            font-family: 'Bangers', cursive;
+            font-size: 26px;
+            color: var(--primary-green);
+            margin-bottom: 10px;
+            letter-spacing: 2px;
+        }
+
+        .step-content p {
+            color: var(--text-gray);
+            line-height: 1.6;
+        }
+
+        /* Chart Section */
+        #chart {
+            text-align: center;
+        }
+
+        .chart-links {
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: center;
+            gap: 20px;
+            max-width: 800px;
+            margin: 0 auto;
+        }
+
+        .chart-link {
+            background: rgba(74, 222, 74, 0.1);
+            border: 2px solid var(--primary-green);
+            color: var(--primary-green);
+            padding: 20px 40px;
+            border-radius: 10px;
+            text-decoration: none;
+            font-family: 'Press Start 2P', cursive;
+            font-size: 12px;
+            transition: all 0.3s;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .chart-link:hover {
+            background: var(--primary-green);
+            color: var(--bg-dark);
+            box-shadow: 0 0 30px rgba(74, 222, 74, 0.5);
+            transform: scale(1.05);
+        }
+
+        /* Footer */
+        footer {
+            background: var(--bg-darker);
+            border-top: 1px solid rgba(74, 222, 74, 0.2);
+            padding: 50px 40px;
+            text-align: center;
+            position: relative;
+            z-index: 1;
+        }
+
+        .footer-logo {
+            font-family: 'Bangers', cursive;
+            font-size: 40px;
+            color: var(--primary-green);
+            margin-bottom: 20px;
+        }
+
+        .footer-socials {
+            display: flex;
+            justify-content: center;
+            gap: 30px;
+            margin-bottom: 30px;
+        }
+
+        .footer-socials a {
+            color: var(--text-white);
+            font-size: 30px;
+            transition: all 0.3s;
+        }
+
+        .footer-socials a:hover {
+            color: var(--primary-green);
+            transform: scale(1.2);
+        }
+
+        .footer-disclaimer {
+            color: var(--text-gray);
+            font-size: 12px;
+            max-width: 600px;
+            margin: 0 auto;
+            line-height: 1.6;
+        }
+
+        /* Mobile Responsive */
+        @media (max-width: 768px) {
+            nav {
+                padding: 15px 20px;
+            }
+
+            .nav-links {
+                display: none;
+            }
+
+            .mobile-menu-btn {
+                display: block;
+                background: none;
+                border: none;
+                color: var(--primary-green);
+                font-size: 30px;
+                cursor: pointer;
+            }
+
+            section {
+                padding: 60px 20px;
+            }
+
+            .hero-logo {
+                width: 120px;
+                height: 120px;
+            }
+
+            .contract-box {
+                flex-direction: column;
+                font-size: 11px;
+                padding: 15px 20px;
+            }
+
+            .step {
+                flex-direction: column;
+                align-items: center;
+                text-align: center;
+            }
+        }
+
+        /* Copy notification */
+        .copy-notification {
+            position: fixed;
+            bottom: 30px;
+            left: 50%;
+            transform: translateX(-50%);
+            background: var(--primary-green);
+            color: var(--bg-dark);
+            padding: 15px 30px;
+            border-radius: 10px;
+            font-family: 'Press Start 2P', cursive;
+            font-size: 12px;
+            opacity: 0;
+            transition: opacity 0.3s;
+            z-index: 9999;
+        }
+
+        .copy-notification.show {
+            opacity: 1;
+        }
+    </style>
+</head>
+<body>
+    <!-- Stars Background -->
+    <div class="stars" id="stars"></div>
+
+    <!-- Background Watermark -->
+    <div class="bg-watermark">P</div>
+
+    <!-- Navigation -->
+    <nav>
+        <a href="#" class="nav-logo">
+            <div class="nav-logo-icon">🟢</div>
+            PEPE
+        </a>
+        <div class="nav-links">
+            <a href="#about">ABOUT</a>
+            <a href="#pepe-lab">PEPE-LAB</a>
+            <a href="#burn-bot">BURN BOT</a>
+            <a href="#how-to-buy">HOW-TO-BUY</a>
+            <a href="#chart">CHART</a>
+            <a href="#" class="buy-btn">BUY</a>
+        </div>
+        <button class="mobile-menu-btn" style="display: none;">☰</button>
+    </nav>
+
+    <!-- Ticker -->
+    <div class="ticker-container">
+        <div class="ticker-content">
+            <span class="ticker-item">PEPE ALWAYS BOUNCES - TICKER IS $PEPE -</span>
+            <span class="ticker-item">PEPE ALWAYS BOUNCES - TICKER IS $PEPE -</span>
+            <span class="ticker-item">PEPE ALWAYS BOUNCES - TICKER IS $PEPE -</span>
+            <span class="ticker-item">PEPE ALWAYS BOUNCES - TICKER IS $PEPE -</span>
+            <span class="ticker-item">PEPE ALWAYS BOUNCES - TICKER IS $PEPE -</span>
+            <span class="ticker-item">PEPE ALWAYS BOUNCES - TICKER IS $PEPE -</span>
+            <span class="ticker-item">PEPE ALWAYS BOUNCES - TICKER IS $PEPE -</span>
+            <span class="ticker-item">PEPE ALWAYS BOUNCES - TICKER IS $PEPE -</span>
+        </div>
+    </div>
+
+    <!-- Hero Section -->
+    <section class="hero">
+        <div class="hero-logo">
+            <img src="images/logo.png" alt="$PEPE Logo" onerror="this.parentElement.innerHTML='<div style=\'font-size:80px;\'>🟢</div>'">
+        </div>
+        <h1 class="hero-title">PEPE</h1>
+        <p class="hero-ticker">$PEPE</p>
+        <div class="contract-box" onclick="copyContract()">
+            <div>
+                <div class="contract-label">CONTRACT ADDRESS</div>
+                <span id="contract-address">(being added in -2 mins)</span>
+            </div>
+            <div class="copy-icon">📋</div>
+        </div>
+    </section>
+
+    <!-- About Section -->
+    <section id="about">
+        <h2 class="section-title">ABOUT $PEPE</h2>
+        <div class="about-content">
+            <p class="about-text">
+                In the wild world of crypto, one name stands above the rest. 
+                <span class="highlight">$PEPE</span> isn't just another memecoin - 
+                it's a cultural phenomenon rooted in Philippine heritage. 
+                While the world knows Pepe as a frog, Filipinos know <span class="highlight">PEPE</span> 
+                as something far more... intimate. 🇵🇭
+            </p>
+            <p class="about-text">
+                We're here to <span class="highlight">BOUNCE</span> our way to the moon, 
+                one green candle at a time. Community-driven, degen-approved, 
+                and built to make you smile (and maybe blush a little).
+            </p>
+            <div class="culture-box">
+                <h3>🇵🇭 FILIPINO CULTURE DROP 🇵🇭</h3>
+                <p>
+                    In Tagalog slang, "pepe" refers to female genitalia. 
+                    It's a word whispered in jokes, giggled about in conversation, 
+                    and now... immortalized on the blockchain. 
+                    This isn't just a memecoin - it's a celebration of Filipino humor 
+                    and the universal language of internet degeneracy. 
+                    <strong>IYKYK.</strong> 🤫
+                </p>
+            </div>
+        </div>
+    </section>
+
+    <!-- Pepe Lab Section -->
+    <section id="pepe-lab">
+        <h2 class="section-title">PEPE-LAB</h2>
+        <div class="lab-grid">
+            <div class="lab-card">
+                <div class="lab-card-icon">🧬</div>
+                <h3>MEME GENETICS</h3>
+                <p>Our advanced meme laboratory is constantly cooking up the freshest, most viral content for maximum community engagement.</p>
+            </div>
+            <div class="lab-card">
+                <div class="lab-card-icon">🚀</div>
+                <h3>LAUNCH PROTOCOL</h3>
+                <p>Fair launch, no presale, no BS. Just pure community-driven momentum from day one. Apes together strong.</p>
+            </div>
+            <div class="lab-card">
+                <div class="lab-card-icon">💎</div>
+                <h3>DIAMOND HANDS</h3>
+                <p>Our holders don't fold. The $PEPE community is built different - we bounce, we hold, we conquer.</p>
+            </div>
+            <div class="lab-card">
+                <div class="lab-card-icon">🌐</div>
+                <h3>GLOBAL REACH</h3>
+                <p>From Manila to Miami, $PEPE is spreading across the globe. Filipino culture meets crypto degeneracy worldwide.</p>
+            </div>
+        </div>
+    </section>
+
+    <!-- Burn Bot Section -->
+    <section id="burn-bot">
+        <h2 class="section-title">🔥 BURN & BUYBACK BOT 🔥</h2>
+        <div class="burn-container">
+            <div class="burn-header">
+                <p>
+                    Our autonomous burn and buyback bot works 24/7 to increase the value of your $PEPE holdings. 
+                    Every transaction fuels the fire, reducing supply and boosting demand. 
+                    <strong>Deflation is the way.</strong>
+                </p>
+            </div>
+
+            <div class="burn-stats">
+                <div class="burn-stat">
+                    <div class="burn-stat-value" id="total-burned">0</div>
+                    <div class="burn-stat-label">Tokens Burned</div>
+                </div>
+                <div class="burn-stat">
+                    <div class="burn-stat-value" id="buyback-volume">$0</div>
+                    <div class="burn-stat-label">Buyback Volume</div>
+                </div>
+                <div class="burn-stat">
+                    <div class="burn-stat-value" id="burn-events">0</div>
+                    <div class="burn-stat-label">Burn Events</div>
+                </div>
+                <div class="burn-stat">
+                    <div class="burn-stat-value">♾️</div>
+                    <div class="burn-stat-label">Running 24/7</div>
+                </div>
+            </div>
+
+            <div class="burn-features">
+                <div class="burn-feature">
+                    <div class="burn-feature-icon">🤖</div>
+                    <div>
+                        <h4>AUTO BUYBACK</h4>
+                        <p>The bot automatically buys $PEPE from the open market using a portion of transaction taxes, creating constant buy pressure.</p>
+                    </div>
+                </div>
+                <div class="burn-feature">
+                    <div class="burn-feature-icon">🔥</div>
+                    <div>
+                        <h4>INSTANT BURN</h4>
+                        <p>Bought tokens are immediately sent to the burn address, permanently removing them from circulation forever.</p>
+                    </div>
+                </div>
+                <div class="burn-feature">
+                    <div class="burn-feature-icon">📈</div>
+                    <div>
+                        <h4>PRICE SUPPORT</h4>
+                        <p>The dual mechanism of buyback + burn creates natural price floors and reduces selling pressure over time.</p>
+                    </div>
+                </div>
+                <div class="burn-feature">
+                    <div class="burn-feature-icon">🔐</div>
+                    <div>
+                        <h4>TRANSPARENT</h4>
+                        <p>All burn transactions are publicly verifiable on-chain. Track every burn in real-time on the blockchain.</p>
+                    </div>
+                </div>
+            </div>
+
+            <div class="bot-animation">
+                <div class="bot-icon">🤖🔥</div>
+                <div class="bot-status">BOT STATUS: ACTIVE - BURNING $PEPE...</div>
+            </div>
+        </div>
+    </section>
+
+    <!-- How to Buy Section -->
+    <section id="how-to-buy">
+        <h2 class="section-title">HOW TO BUY</h2>
+        <div class="steps-container">
+            <div class="step">
+                <div class="step-number">1</div>
+                <div class="step-content">
+                    <h3>CREATE A WALLET</h3>
+                    <p>Download Phantom, Solflare, or your favorite Solana wallet. Set it up and secure your seed phrase somewhere safe (not on your phone's notes app, degen).</p>
+                </div>
+            </div>
+            <div class="step">
+                <div class="step-number">2</div>
+                <div class="step-content">
+                    <h3>GET SOME SOL</h3>
+                    <p>Buy SOL from any major exchange like Coinbase, Binance, or Kraken. Send it to your wallet address. You'll need SOL to swap for $PEPE.</p>
+                </div>
+            </div>
+            <div class="step">
+                <div class="step-number">3</div>
+                <div class="step-content">
+                    <h3>CONNECT TO DEX</h3>
+                    <p>Head over to Raydium, Jupiter, or your preferred Solana DEX. Connect your wallet and prepare for the swap of your life.</p>
+                </div>
+            </div>
+            <div class="step">
+                <div class="step-number">4</div>
+                <div class="step-content">
+                    <h3>SWAP FOR $PEPE</h3>
+                    <p>Paste the $PEPE contract address, set your slippage, and smash that swap button. Welcome to the $PEPE family, fam! 🎉</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Chart Section -->
+    <section id="chart">
+        <h2 class="section-title">CHART & LINKS</h2>
+        <div class="chart-links">
+            <a href="#" class="chart-link">
+                📊 DEXSCREENER
+            </a>
+            <a href="#" class="chart-link">
+                🦅 BIRDEYE
+            </a>
+            <a href="#" class="chart-link">
+                💧 RAYDIUM
+            </a>
+            <a href="#" class="chart-link">
+                🪐 JUPITER
+            </a>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer>
+        <div class="footer-logo">$PEPE</div>
+        <div class="footer-socials">
+            <a href="https://x.com/drinx666" target="_blank" title="Twitter/X">𝕏</a>
+            <a href="#" title="Telegram">✈️</a>
+            <a href="#" title="Discord">💬</a>
+        </div>
+        <p class="footer-disclaimer">
+            $PEPE is a memecoin with no intrinsic value or expectation of financial return. 
+            This is not financial advice. Always DYOR. 
+            Cryptocurrency investments are highly volatile and risky. 
+            Only invest what you can afford to lose. 🇵🇭
+        </p>
+    </footer>
+
+    <!-- Copy Notification -->
+    <div class="copy-notification" id="copy-notification">
+        CONTRACT COPIED!
+    </div>
+
+    <script>
+        // Generate stars
+        function generateStars() {
+            const starsContainer = document.getElementById('stars');
+            for (let i = 0; i < 100; i++) {
+                const star = document.createElement('div');
+                star.className = 'star';
+                star.style.left = Math.random() * 100 + '%';
+                star.style.top = Math.random() * 100 + '%';
+                star.style.animationDelay = Math.random() * 3 + 's';
+                star.style.width = Math.random() * 2 + 1 + 'px';
+                star.style.height = star.style.width;
+                starsContainer.appendChild(star);
+            }
+        }
+        generateStars();
+
+        // Copy contract address
+        function copyContract() {
+            const address = document.getElementById('contract-address').textContent;
+            navigator.clipboard.writeText(address).then(() => {
+                const notification = document.getElementById('copy-notification');
+                notification.classList.add('show');
+                setTimeout(() => {
+                    notification.classList.remove('show');
+                }, 2000);
+            });
+        }
+
+        // Animate burn stats
+        function animateStats() {
+            const burned = document.getElementById('total-burned');
+            const volume = document.getElementById('buyback-volume');
+            const events = document.getElementById('burn-events');
+
+            let burnedCount = 0;
+            let volumeCount = 0;
+            let eventsCount = 0;
+
+            const burnedTarget = 142857690;
+            const volumeTarget = 69420;
+            const eventsTarget = 1337;
+
+            const duration = 2000;
+            const steps = 60;
+            const interval = duration / steps;
+
+            const burnedStep = burnedTarget / steps;
+            const volumeStep = volumeTarget / steps;
+            const eventsStep = eventsTarget / steps;
+
+            const counter = setInterval(() => {
+                burnedCount += burnedStep;
+                volumeCount += volumeStep;
+                eventsCount += eventsStep;
+
+                if (burnedCount >= burnedTarget) {
+                    burnedCount = burnedTarget;
+                    volumeCount = volumeTarget;
+                    eventsCount = eventsTarget;
+                    clearInterval(counter);
+                }
+
+                burned.textContent = Math.floor(burnedCount).toLocaleString();
+                volume.textContent = '$' + Math.floor(volumeCount).toLocaleString();
+                events.textContent = Math.floor(eventsCount).toLocaleString();
+            }, interval);
+        }
+
+        // Intersection Observer for stats animation
+        const observer = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    animateStats();
+                    observer.unobserve(entry.target);
+                }
+            });
+        }, { threshold: 0.5 });
+
+        const burnSection = document.getElementById('burn-bot');
+        if (burnSection) {
+            observer.observe(burnSection);
+        }
+
+        // Mobile menu (basic toggle)
+        const mobileBtn = document.querySelector('.mobile-menu-btn');
+        const navLinks = document.querySelector('.nav-links');
+        
+        if (window.innerWidth <= 768) {
+            mobileBtn.style.display = 'block';
+        }
+
+        window.addEventListener('resize', () => {
+            if (window.innerWidth <= 768) {
+                mobileBtn.style.display = 'block';
+            } else {
+                mobileBtn.style.display = 'none';
+                navLinks.style.display = 'flex';
+            }
+        });
+
+        mobileBtn.addEventListener('click', () => {
+            if (navLinks.style.display === 'none' || navLinks.style.display === '') {
+                navLinks.style.display = 'flex';
+                navLinks.style.flexDirection = 'column';
+                navLinks.style.position = 'absolute';
+                navLinks.style.top = '100%';
+                navLinks.style.left = '0';
+                navLinks.style.right = '0';
+                navLinks.style.background = 'rgba(10, 10, 10, 0.98)';
+                navLinks.style.padding = '20px';
+                navLinks.style.gap = '20px';
+            } else {
+                navLinks.style.display = 'none';
+            }
+        });
+
+        // Smooth scroll for anchor links
+        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+            anchor.addEventListener('click', function (e) {
+                e.preventDefault();
+                const target = document.querySelector(this.getAttribute('href'));
+                if (target) {
+                    target.scrollIntoView({
+                        behavior: 'smooth',
+                        block: 'start'
+                    });
+                }
+            });
+        });
+    </script>
+</body>
+</html>
